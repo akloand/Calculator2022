@@ -9,7 +9,8 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
 
     EditText editText;
-
+    String oldNumber;
+    String operator;
     Boolean isNew = true;
 
     @Override
@@ -38,22 +39,38 @@ public class MainActivity extends AppCompatActivity {
             case R.id.but8: number = number+8; break;
             case R.id.but9: number = number+9; break;
             case R.id.butAC: number = "0"; isNew = true; break;
+            case R.id.butPlusMinus: number = "-"+number; break;
 
         }
         editText.setText(number);
     }
 
     public void operation(View view) {
+        isNew = true;
+        oldNumber = editText.getText().toString();
+
         switch (view.getId()) {
-            case R.id.butSum: number = number+"+"; break;
-            case R.id.butSub: number = number+"-"; break;
-            case R.id.butMult: number = number+"×"; break;
-            case R.id.butDiv: number = number+"/"; break;
+            case R.id.butSum: operator="+"; break;
+            case R.id.butSub: operator="-"; break;
+            case R.id.butMult: operator="*"; break;
+            case R.id.butDiv: operator="/"; break;
         }
+    }
 
 
+    public void clickResult(View view) {
+        String newNumber = editText.getText().toString();
+        Double result = 0.0;
+        switch (operator) {
+            case "+": result = Double.parseDouble(oldNumber) + Double.parseDouble(newNumber); break;
+            case "-": result = Double.parseDouble(oldNumber) - Double.parseDouble(newNumber); break;
+            case "*": result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber); break;
+            case "/": result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber); break;
+        }
+        editText.setText(result+"");
 
     }
+
 
 
 }
