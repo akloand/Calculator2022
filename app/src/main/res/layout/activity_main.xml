@@ -267,6 +267,7 @@
 
             <Button
                 android:id="@+id/butPercent"
+                android:onClick="clickPercent"
                 android:layout_width="30pt"
                 android:layout_height="30pt"
                 android:layout_margin="2pt"

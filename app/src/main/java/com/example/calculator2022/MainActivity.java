@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             case "*": result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber); break;
             case "/": result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber); break;
         }
-        resultString = resultWithoutNull(Double.toString(result));
+        resultString = Double.toString(result);
         editText.setText(resultString);
 
     }
@@ -102,19 +102,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void clickPercent(View view) {
+
+
+
+
+
+
+
+
+
+    }
+
 
 //    public boolean resultIsPointZero(String word) {
 //
 //    }
 
-        public static String resultWithoutNull(String number) {
-
-                String newWord = number.substring(number.lastIndexOf(".") + 0);
-                if (newWord == ".0") {
-                    return number.substring(0, number.lastIndexOf("."));
-               } else {
-                    return number;
-                }
-        }
+//        public static String resultWithoutNull(String number) {
+//                String newWord = number.substring(number.lastIndexOf(".") + 0);
+//                if (newWord == ".0") {
+//                    return number;
+//               } else {
+//                    return number.substring(0, number.lastIndexOf("."));
+//                }
+//        }
 
     }   
