@@ -38,8 +38,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.but7: number = number+7; break;
             case R.id.but8: number = number+8; break;
             case R.id.but9: number = number+9; break;
+
             case R.id.butAC: number = "0"; isNew = true; break;
-            case R.id.butPlusMinus: number = "-"+number; break;
+
+            case R.id.butPoint:
+                if (pointIsPresent(number)) {
+                    number = number + ".";
+                }  break;
+
+            case R.id.butPlusMinus:
+                if (plusMinusIsPresent(number)) {
+                    number = "-" + number;
+                } else {
+                    number = number.replace("-","");
+                }  break;
+
 
         }
         editText.setText(number);
@@ -58,19 +71,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void clickResult(View view) {
+    public void clickEqual(View view) {
         String newNumber = editText.getText().toString();
         Double result = 0.0;
+        String resultString = "";
         switch (operator) {
             case "+": result = Double.parseDouble(oldNumber) + Double.parseDouble(newNumber); break;
             case "-": result = Double.parseDouble(oldNumber) - Double.parseDouble(newNumber); break;
             case "*": result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber); break;
             case "/": result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber); break;
         }
-        editText.setText(result+"");
+        resultString = resultWithoutNull(Double.toString(result));
+        editText.setText(resultString);
 
     }
 
+    public boolean pointIsPresent(String number) {
+        if (number.contains(".")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean plusMinusIsPresent(String number) {
+        if (number.contains("-")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 
-}
+//    public boolean resultIsPointZero(String word) {
+//
+//    }
+
+        public static String resultWithoutNull(String number) {
+
+                String newWord = number.substring(number.lastIndexOf(".") + 0);
+                if (newWord == ".0") {
+                    return number.substring(0, number.lastIndexOf("."));
+               } else {
+                    return number;
+                }
+        }
+
+    }   
