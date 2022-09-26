@@ -267,12 +267,12 @@
 
             <Button
                 android:id="@+id/butPercent"
-                android:onClick="clickPercent"
                 android:layout_width="30pt"
                 android:layout_height="30pt"
                 android:layout_margin="2pt"
                 android:layout_weight="1"
                 android:backgroundTint="@color/buttonBackColor"
+                android:onClick="clickPercent"
                 android:text="%"
                 android:textColor="@color/buttonFontColor"
                 android:textSize="35sp" />

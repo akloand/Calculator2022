@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText editText;
     String oldNumber;
-    String operator;
+    String operator = "";
     Boolean isNew = true;
 
     @Override
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.but8: number = number+8; break;
             case R.id.but9: number = number+9; break;
 
-            case R.id.butAC: number = "0"; isNew = true; break;
+            case R.id.butAC: number = "0"; isNew = true; operator=""; break;
 
             case R.id.butPoint:
                 if (pointIsPresent(number)) {
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         oldNumber = editText.getText().toString();
 
         switch (view.getId()) {
+
             case R.id.butSum: operator="+"; break;
             case R.id.butSub: operator="-"; break;
             case R.id.butMult: operator="*"; break;
@@ -104,14 +105,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickPercent(View view) {
 
-
-
-
-
-
-
-
-
+        if (operator == "") {
+            String number = editText.getText().toString();
+            double temp = Double.parseDouble(number) / 100;
+            number = temp + "";
+            editText.setText(number);
+        } else {
+            Double result = 0.0;
+            String newNumber = editText.getText().toString();
+            switch (operator) {
+                case "+": result = Double.parseDouble(oldNumber) + Double.parseDouble(newNumber); break;
+                case "-": result = Double.parseDouble(oldNumber) - Double.parseDouble(newNumber); break;
+                case "*": result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber); break;
+                case "/": result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber); break;
+            }
+        }
 
     }
 
