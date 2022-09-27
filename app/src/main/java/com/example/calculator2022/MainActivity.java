@@ -47,15 +47,26 @@ public class MainActivity extends AppCompatActivity {
                 }  break;
 
             case R.id.butPlusMinus:
+                if (numberIsZero(number)) {
+                    number = "0";
+                } else {
                 if (plusMinusIsPresent(number)) {
                     number = "-" + number;
                 } else {
                     number = number.replace("-","");
+                }
                 }  break;
-
 
         }
         editText.setText(number);
+    }
+
+    private boolean numberIsZero(String number) {
+        if (number.equals("0") || number.equals("")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void operation(View view) {
@@ -114,11 +125,13 @@ public class MainActivity extends AppCompatActivity {
             Double result = 0.0;
             String newNumber = editText.getText().toString();
             switch (operator) {
-                case "+": result = Double.parseDouble(oldNumber) + Double.parseDouble(newNumber); break;
-                case "-": result = Double.parseDouble(oldNumber) - Double.parseDouble(newNumber); break;
-                case "*": result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber); break;
-                case "/": result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber); break;
+                case "+": result = Double.parseDouble(oldNumber) + Double.parseDouble(oldNumber) * Double.parseDouble(newNumber)/100; break;
+                case "-": result = Double.parseDouble(oldNumber) - Double.parseDouble(oldNumber) * Double.parseDouble(newNumber)/100; break;
+                case "*": result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber)/100; break;
+                case "/": result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber)*100; break;
             }
+            editText.setText(result + "");
+            operator = "";
         }
 
     }
