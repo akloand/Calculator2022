@@ -22,43 +22,115 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickNumber(View view) {
-        if(isNew) editText.setText("");
+        if (isNew) editText.setText("");
         isNew = false;
 
         String number = editText.getText().toString();
 
         switch (view.getId()) {
-            case R.id.but0: number = number+0; break;
-            case R.id.but1: number = number+1; break;
-            case R.id.but2: number = number+2; break;
-            case R.id.but3: number = number+3; break;
-            case R.id.but4: number = number+4; break;
-            case R.id.but5: number = number+5; break;
-            case R.id.but6: number = number+6; break;
-            case R.id.but7: number = number+7; break;
-            case R.id.but8: number = number+8; break;
-            case R.id.but9: number = number+9; break;
+            case R.id.but0:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = "0";
+                } else {
+                    number = number + 0;
+                }
+                break;
 
-            case R.id.butAC: number = "0"; isNew = true; operator=""; break;
+
+            case R.id.but1:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = number.substring(1);
+                }
+                number = number + 1;
+                break;
+            case R.id.but2:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = number.substring(1);
+                }
+                number = number + 2;
+                break;
+            case R.id.but3:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = number.substring(1);
+                }
+                number = number + 3;
+                break;
+            case R.id.but4:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = number.substring(1);
+                }
+                number = number + 4;
+                break;
+            case R.id.but5:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = number.substring(1);
+                }
+                number = number + 5;
+                break;
+            case R.id.but6:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = number.substring(1);
+                }
+                number = number + 6;
+                break;
+            case R.id.but7:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = number.substring(1);
+                }
+                number = number + 7;
+                break;
+            case R.id.but8:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = number.substring(1);
+                }
+                number = number + 8;
+                break;
+            case R.id.but9:
+                if (zeroIsFirst(number) && number.length() == 1) {
+                    number = number.substring(1);
+                }
+                number = number + 9;
+                break;
+
+            case R.id.butAC:
+                number = "0";
+                isNew = true;
+                operator = "";
+                break;
 
             case R.id.butPoint:
                 if (pointIsPresent(number)) {
                     number = number + ".";
-                }  break;
+                }
+                break;
 
             case R.id.butPlusMinus:
                 if (numberIsZero(number)) {
                     number = "0";
                 } else {
-                if (plusMinusIsPresent(number)) {
-                    number = "-" + number;
-                } else {
-                    number = number.replace("-","");
+                    if (plusMinusIsPresent(number)) {
+                        number = "-" + number;
+                    } else {
+                        number = number.replace("-", "");
+                    }
                 }
-                }  break;
+                break;
 
         }
         editText.setText(number);
+    }
+
+    private boolean zeroIsFirst(String number) {
+        if (number.equals("")) {
+            return true;
+        }
+
+        if (number.charAt(0) == '0') {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     private boolean numberIsZero(String number) {
@@ -75,10 +147,18 @@ public class MainActivity extends AppCompatActivity {
 
         switch (view.getId()) {
 
-            case R.id.butSum: operator="+"; break;
-            case R.id.butSub: operator="-"; break;
-            case R.id.butMult: operator="*"; break;
-            case R.id.butDiv: operator="/"; break;
+            case R.id.butSum:
+                operator = "+";
+                break;
+            case R.id.butSub:
+                operator = "-";
+                break;
+            case R.id.butMult:
+                operator = "*";
+                break;
+            case R.id.butDiv:
+                operator = "/";
+                break;
         }
     }
 
@@ -88,10 +168,18 @@ public class MainActivity extends AppCompatActivity {
         Double result = 0.0;
         String resultString = "";
         switch (operator) {
-            case "+": result = Double.parseDouble(oldNumber) + Double.parseDouble(newNumber); break;
-            case "-": result = Double.parseDouble(oldNumber) - Double.parseDouble(newNumber); break;
-            case "*": result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber); break;
-            case "/": result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber); break;
+            case "+":
+                result = Double.parseDouble(oldNumber) + Double.parseDouble(newNumber);
+                break;
+            case "-":
+                result = Double.parseDouble(oldNumber) - Double.parseDouble(newNumber);
+                break;
+            case "*":
+                result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber);
+                break;
+            case "/":
+                result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber);
+                break;
         }
         resultString = Double.toString(result);
         editText.setText(resultString);
@@ -125,10 +213,18 @@ public class MainActivity extends AppCompatActivity {
             Double result = 0.0;
             String newNumber = editText.getText().toString();
             switch (operator) {
-                case "+": result = Double.parseDouble(oldNumber) + Double.parseDouble(oldNumber) * Double.parseDouble(newNumber)/100; break;
-                case "-": result = Double.parseDouble(oldNumber) - Double.parseDouble(oldNumber) * Double.parseDouble(newNumber)/100; break;
-                case "*": result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber)/100; break;
-                case "/": result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber)*100; break;
+                case "+":
+                    result = Double.parseDouble(oldNumber) + Double.parseDouble(oldNumber) * Double.parseDouble(newNumber) / 100;
+                    break;
+                case "-":
+                    result = Double.parseDouble(oldNumber) - Double.parseDouble(oldNumber) * Double.parseDouble(newNumber) / 100;
+                    break;
+                case "*":
+                    result = Double.parseDouble(oldNumber) * Double.parseDouble(newNumber) / 100;
+                    break;
+                case "/":
+                    result = Double.parseDouble(oldNumber) / Double.parseDouble(newNumber) * 100;
+                    break;
             }
             editText.setText(result + "");
             operator = "";
@@ -137,17 +233,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    public boolean resultIsPointZero(String word) {
-//
-//    }
 
-//        public static String resultWithoutNull(String number) {
-//                String newWord = number.substring(number.lastIndexOf(".") + 0);
-//                if (newWord == ".0") {
-//                    return number;
-//               } else {
-//                    return number.substring(0, number.lastIndexOf("."));
-//                }
-//        }
-
-    }   
+}
