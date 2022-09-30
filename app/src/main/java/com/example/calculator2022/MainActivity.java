@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText editText;
@@ -13,13 +19,28 @@ public class MainActivity extends AppCompatActivity {
     String operator = "";
     Boolean isNew = true;
 
+    private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         editText = findViewById(R.id.CalcField);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
     }
+
 
     public void clickNumber(View view) {
         if (isNew) editText.setText("");
@@ -99,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.butPoint:
+                if (zeroIsFirst(number)) {
+                    number = "0.";
+                }
                 if (pointIsPresent(number)) {
                     number = number + ".";
                 }
@@ -118,27 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
         editText.setText(number);
-    }
-
-    private boolean zeroIsFirst(String number) {
-        if (number.equals("")) {
-            return true;
-        }
-
-        if (number.charAt(0) == '0') {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    private boolean numberIsZero(String number) {
-        if (number.equals("0") || number.equals("")) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public void operation(View view) {
@@ -162,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public void clickEqual(View view) {
         String newNumber = editText.getText().toString();
         Double result = 0.0;
@@ -184,22 +186,6 @@ public class MainActivity extends AppCompatActivity {
         resultString = Double.toString(result);
         editText.setText(resultString);
 
-    }
-
-    public boolean pointIsPresent(String number) {
-        if (number.contains(".")) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public boolean plusMinusIsPresent(String number) {
-        if (number.contains("-")) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     public void clickPercent(View view) {
@@ -233,6 +219,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    private boolean zeroIsFirst(String number) {
+        if (number.equals("")) {
+            return true;
+        }
+
+        if (number.charAt(0) == '0') {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    private boolean numberIsZero(String number) {
+        if (number.equals("0") || number.equals("")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean pointIsPresent(String number) {
+        if (number.contains(".")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean plusMinusIsPresent(String number) {
+        if (number.contains("-")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 
 }
